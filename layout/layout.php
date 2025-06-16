@@ -15,23 +15,14 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
-                <li class="nav-item dropdown">
+                <li class="nav-item">
                     <?php
                     if ($_SERVER['REQUEST_URI'] == "/library-cafe/barang.php") {
-                        echo '<a class="nav-link active dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                        Barang
-                        </a>';
+                        echo '<a class="nav-link active" href="barang.php">Barang</a>';
                     } else {
-                        echo '<a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                        Barang
-                        </a>';
+                        echo '<a class="nav-link" href="barang.php">Barang</a>';
                     }
                     ?>
-                    <ul class="dropdown-menu">
-                        <li><a class="dropdown-item" href="barang.php">List Barang</a></li>
-                        <li><a class="dropdown-item" href="/">Tambah Barang</a></li>
-                        <li><a class="dropdown-item" href="#">Edit & Delete Barang</a></li>
-                    </ul>
                 </li>
                 <li class="nav-item">
                     <?php

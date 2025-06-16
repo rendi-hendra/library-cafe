@@ -13,7 +13,8 @@ if(!isset($_SESSION["login"])) {
     <div>
         <?php include 'layout/layout.php'; ?>
         <div class="container">
-            <div class="row row-cols-1 row-cols-md-3 g-4 mt-5">
+            <a href="barang_form.php" class="btn btn-primary mt-5">Tambah Barang</a>
+            <div class="row row-cols-1 row-cols-md-3 g-4 mt-2">
                 <?php
                 $sql = "SELECT * FROM barang";
                 $result = mysqli_query($conn, $sql);
@@ -21,10 +22,11 @@ if(!isset($_SESSION["login"])) {
                 <?php while ($row = mysqli_fetch_assoc($result)): ?>
                     <div class="col">
                         <div class="card">
-                            <img src="..." class="card-img-top" alt="...">
+                            <!-- <img src="..." class="card-img-top" alt="..."> -->
                             <div class="card-body">
                                 <h5 class="card-title"><?= $row['nama'] ?></h5>
                                 <p class="card-text">Harga: <?= $row['harga'] ?> Stok: <?= $row['stok'] ?></p>
+                                <a href="barang_form.php?id=<?= $row['id'] ?>" class="btn btn-primary">Edit</a>
                             </div>
                         </div>
                     </div>
