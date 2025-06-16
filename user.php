@@ -1,4 +1,13 @@
 <?php include 'connectdb.php'; ?>
+<?php
+session_start();
+
+if (!isset($_SESSION["login"])) {
+    header("Location: login.php");
+    exit;
+}
+?>
+
 <?php include 'layout/header.php'; ?>
 
 <body>
@@ -9,11 +18,12 @@
         $result = mysqli_query($conn, $sql);
 
         if (mysqli_num_rows($result) > 0) {
+            $no = 1;
             echo "<table class='table table-bordered text-center'>";
-            echo "<thead class='table-dark'><tr><th>id</th><th>Nama</th><th>email</th></th><th>Aksi</th></tr></thead><tbody>";
+            echo "<thead class='table-dark'><tr><th>No</th><th>Nama</th><th>email</th></th><th>Aksi</th></tr></thead><tbody>";
             while ($row = mysqli_fetch_assoc($result)) {
                 echo "<tr>
-            <td>" . $row['id'] . "</td>
+            <td>$no</td>
             <td>" . $row['nama'] . "</td>
             <td>" . $row['email'] . "</td>
             <td>
@@ -21,6 +31,7 @@
                 <a href='#' class='btn btn-danger btn-delete btn-sm') data-id=" . $row['id'] . ">Hapus</a>
             </td>
         </tr>";
+            $no++;
             }
             echo "</tbody></table>";
         } else {
@@ -49,7 +60,6 @@
                     cancelButtonText: 'Batal'
                 }).then((result) => {
                     if (result.isConfirmed) {
-                        // Arahkan ke delete.php jika konfirmasi OK
                         window.location.href = `src/user/user_delete.php?id=${userId}`;
                     }
                 });

@@ -1,16 +1,34 @@
 <?php include '../../connectdb.php'; ?>
 
 <?php
-if (isset($_POST['submit'])) {
-    $nama = mysqli_real_escape_string($conn, $_POST['nama']);
+session_start();
+
+if (isset($_POST['login'])) {
     $email = mysqli_real_escape_string($conn, $_POST['email']);
     $password = mysqli_real_escape_string($conn, $_POST['password']);
+    $sql = "SELECT * FROM user WHERE email = '$email'";
+    $result = mysqli_query($conn, $sql);
 
-    $sql = "INSERT INTO user (nama, email, password) VALUES ('$nama', '$email', '$password')";
-    if (mysqli_query($conn, $sql)) {
-        header("Location: ../../user.php");
-        echo "<div class='alert alert-success'>Data berhasil ditambahkan.</div>";
+    if (mysqli_num_rows($result) === 1) {
+        $row = mysqli_fetch_assoc($result);
+        if (password_verify($password, $row["password"])) {
+            $_SESSION["login"] = true;
+            header("Location: ../../user.php");
+            exit;
+        } else {
+            echo "
+                <script>
+                    alert('Email Atau Password Anda Salah!');
+                    document.location.href = '/library-cafe/login.php';
+                </script>
+            ";
+        }
     } else {
-        echo "<div class='alert alert-danger'>Error: " . mysqli_error($conn) . "</div>";
+        echo "
+        <script>
+            alert('Email Atau Password Anda Salah!');
+            document.location.href = '/library-cafe/login.php';
+        </script>
+    ";
     }
 }
