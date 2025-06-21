@@ -42,10 +42,9 @@ if (!isset($_SESSION["login"])) {
 
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script>
-        // Ketika tombol dengan class btn-delete diklik
         document.querySelectorAll('.btn-delete').forEach(button => {
             button.addEventListener('click', function(e) {
-                e.preventDefault(); // Supaya gak langsung jalanin link
+                e.preventDefault();
 
                 const userId = this.getAttribute('data-id');
 

@@ -26,7 +26,9 @@ if(!isset($_SESSION["login"])) {
                             <div class="card-body">
                                 <h5 class="card-title"><?= $row['nama'] ?></h5>
                                 <p class="card-text">Harga: <?= $row['harga'] ?> Stok: <?= $row['stok'] ?></p>
+                                <p class="card-text"><?= $row['keterangan'] ?></p>
                                 <a href="barang_form.php?id=<?= $row['id'] ?>" class="btn btn-primary">Edit</a>
+                                <button class='btn btn-danger btn-delete' data-id="<?= $row['id'] ?>">Hapus</button>
                             </div>
                         </div>
                     </div>
@@ -34,4 +36,30 @@ if(!isset($_SESSION["login"])) {
             </div>
         </div>
     </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script>
+        document.querySelectorAll('.btn-delete').forEach(button => {
+            button.addEventListener('click', function(e) {
+                e.preventDefault();
+
+                const userId = this.getAttribute('data-id');
+
+                Swal.fire({
+                    title: 'Yakin mau hapus?',
+                    text: "Data akan dihapus secara permanen!",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#d33',
+                    cancelButtonColor: '#3085d6',
+                    confirmButtonText: 'Ya, hapus!',
+                    cancelButtonText: 'Batal'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        window.location.href = `src/barang/barang_delete.php?id=${userId}`;
+                    }
+                });
+            });
+        });
+    </script>
 </body>

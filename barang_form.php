@@ -1,8 +1,5 @@
 <?php include 'connectdb.php';
- $id = $_GET['id'];
- $sql = "SELECT * FROM barang WHERE id=$id";
- $result = mysqli_query($conn, $sql);
- $row = mysqli_fetch_assoc($result);
+ $id = isset($_GET['id']) ? (int)$_GET['id'] : null;
 ?>
 
 <?php
@@ -44,6 +41,9 @@ if (!isset($_SESSION["login"])) {
         </form>
                 ';
         } else {
+            $sql = "SELECT * FROM barang WHERE id=$id";
+            $result = mysqli_query($conn, $sql);
+            $row = mysqli_fetch_assoc($result);
             echo "
                 <h2>Edit Barang</h2>
         <form method='POST' action='src/barang/barang_edit.php?id=". $id ."'>
