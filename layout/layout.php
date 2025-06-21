@@ -2,7 +2,7 @@
     class="navbar navbar-expand-lg bg-body-tertiary bg-dark border-bottom border-body"
     data-bs-theme="dark">
     <div class="container">
-        <a href="index.php" class="navbar-brand fw-semibold">Library Cafe</a>
+        <a href="barang.php" class="navbar-brand fw-semibold">Library Cafe</a>
         <button
             class="navbar-toggler"
             type="button"

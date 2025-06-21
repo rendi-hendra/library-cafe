@@ -19,25 +19,29 @@ if (!isset($_SESSION["login"])) {
         <?php
         if (!$id) {
             echo '
-                        <h2>Tambah Barang</h2>
-        <form method="POST" action="src/barang/barang_create.php">
+                <h2>Tambah Barang</h2>
+        <form method="POST" action="src/barang/barang_create.php" enctype="multipart/form-data">
             <div class="mb-3">
-                <label>Nama</label>
+                <label class="form-label">Nama</label>
                 <input type="text" name="nama" class="form-control" required>
             </div>
             <div class="mb-3">
-                <label>Harga</label>
+                <label class="form-label">Harga</label>
                 <input type="text" name="harga" class="form-control" required>
             </div>
             <div class="mb-3">
-                <label>Stok</label>
+                <label class="form-label">Stok</label>
                 <input type="text" name="stok" class="form-control" required>
             </div>
             <div class="mb-3">
-                <label>Keterangan</label>
+                <label class="form-label">Keterangan</label>
                 <input type="text" name="keterangan" class="form-control" required>
             </div>
-            <input type="submit" name="create" value="Create" class="btn btn-primary">
+            <div class="mb-3">
+                <label for="gambar" class="form-label">Gambar</label>
+                <input class="form-control" type="file" name="gambar" id="gambar" required>
+            </div>
+            <input type="submit" name="create" value="Create" class="btn btn-success">
         </form>
                 ';
         } else {
@@ -48,22 +52,22 @@ if (!isset($_SESSION["login"])) {
                 <h2>Edit Barang</h2>
         <form method='POST' action='src/barang/barang_edit.php?id=". $id ."'>
             <div class='mb-3'>
-                <label>Nama</label>
+                <label class='form-label'>Nama</label>
                 <input type='text' name='nama' class='form-control' value='". $row['nama'] ."' required>
             </div>
             <div class='mb-3'>
-                <label>Harga</label>
+                <label class='form-label'>Harga</label>
                 <input type='text' name='harga' class='form-control' value='". $row['harga'] ."' required>
             </div>
             <div class='mb-3'>
-                <label>Stok</label>
+                <label class='form-label'>Stok</label>
                 <input type='text' name='stok' class='form-control' value='". $row['stok'] ."' required>
             </div>
             <div class='mb-3'>
-                <label>Keterangan</label>
+                <label class='form-label'>Keterangan</label>
                 <input type='text' name='keterangan' class='form-control' value='". $row['keterangan'] ."' required>
             </div>
-            <input type='submit' name='edit' value='Edit' class='btn btn-primary'>
+            <input type='submit' name='edit' value='Update' class='btn btn-success'>
         </form>
                 
                 ";

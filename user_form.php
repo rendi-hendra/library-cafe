@@ -29,7 +29,7 @@ $row = mysqli_fetch_assoc($result);
                 <label>Email</label>
                 <input type="email" name="email" class="form-control" value="<?php echo $row['email'] ?>" required>
             </div>
-             <input type="submit" name="update" value="Update" class="btn btn-primary">
+             <input type="submit" name="update" value="Update" class="btn btn-success">
         </form>
     </div>
 </body>

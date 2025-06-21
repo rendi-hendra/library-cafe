@@ -6,6 +6,9 @@ if (!isset($_SESSION["login"])) {
     header("Location: login.php");
     exit;
 }
+
+$sql = "SELECT * FROM user";
+$result = mysqli_query($conn, $sql);
 ?>
 
 <?php include 'layout/header.php'; ?>
@@ -14,9 +17,6 @@ if (!isset($_SESSION["login"])) {
     <?php include 'layout/layout.php'; ?>
     <div class="container mt-5">
         <?php
-        $sql = "SELECT * FROM user";
-        $result = mysqli_query($conn, $sql);
-
         if (mysqli_num_rows($result) > 0) {
             $no = 1;
             echo "<table class='table table-bordered text-center'>";
@@ -28,7 +28,7 @@ if (!isset($_SESSION["login"])) {
             <td>" . $row['email'] . "</td>
             <td>
                 <a href='user_form.php?id=" . $row['id'] . "' class='btn btn-warning btn-sm'>Edit</a>
-                <a href='#' class='btn btn-danger btn-delete btn-sm') data-id=" . $row['id'] . ">Hapus</a>
+                <button class='btn btn-danger btn-delete btn-sm' data-id=" . $row['id'] . ">Hapus</button>
             </td>
         </tr>";
             $no++;
