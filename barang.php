@@ -24,7 +24,7 @@ $result = mysqli_query($conn, $sql);
                     echo "
                         <div class='col'>
                         <div class='card h-100'>
-                            <img src='img/" . $row['gambar'] . "' class='card-img-top' style='height: 200px; object-fit: cover;' alt='" . $row['gambar'] . "'>
+                            <img src='img/" . $row['gambar'] . "' class='card-img-top object-fit-cover' style='height: 200px;' alt='" . $row['gambar'] . "'>
                             <div class='card-body'>
                                 <h5 class='card-title'>" . $row['nama'] . "</h5>
                                 <p class='card-text'>" . $row['keterangan'] . "</p>

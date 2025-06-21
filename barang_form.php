@@ -50,7 +50,8 @@ if (!isset($_SESSION["login"])) {
             $row = mysqli_fetch_assoc($result);
             echo "
                 <h2>Edit Barang</h2>
-        <form method='POST' action='src/barang/barang_edit.php?id=". $id ."'>
+        <form method='POST' action='src/barang/barang_edit.php?id=". $id ."' enctype='multipart/form-data'>
+            <input type='hidden' name='gambarLama' value='" . $row['gambar'] . "'>
             <div class='mb-3'>
                 <label class='form-label'>Nama</label>
                 <input type='text' name='nama' class='form-control' value='". $row['nama'] ."' required>
@@ -66,6 +67,11 @@ if (!isset($_SESSION["login"])) {
             <div class='mb-3'>
                 <label class='form-label'>Keterangan</label>
                 <input type='text' name='keterangan' class='form-control' value='". $row['keterangan'] ."' required>
+            </div>
+            <div class='mb-3'>
+                <label for='gambar' class='form-label'>Gambar</label> <br>
+                <img src='img/" . $row['gambar'] . "' width='150'>
+                <input class='form-control' type='file' name='gambar' id='gambar'>
             </div>
             <input type='submit' name='edit' value='Update' class='btn btn-success'>
         </form>
