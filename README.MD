@@ -1,5 +1,6 @@
-Todo;
-- index.html
-- barang.php
-- user.php
-- transaksi.php
+## Todo:
+
+- ~~barang~~
+- ~~user~~
+- transaksi
+- role
