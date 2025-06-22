@@ -2,5 +2,7 @@
 
 - ~~barang~~
 - ~~user~~
-- transaksi
-- role
+- ~~transaksi~~
+- ~~role~~
+- ~~checkout~~
+- foreign key delete
