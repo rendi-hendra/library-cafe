@@ -1,5 +1,5 @@
-<?php include 'connectdb.php'; ?>
 <?php
+include 'connectdb.php';
 session_start();
 
 if (!isset($_SESSION["login"])) {
@@ -7,50 +7,82 @@ if (!isset($_SESSION["login"])) {
     exit;
 }
 
-$sql = "SELECT * FROM barang";
-$result = mysqli_query($conn, $sql);
+$isAdmin = isset($_SESSION['admin']);
+$barang = mysqli_query($conn, "SELECT * FROM barang");
+
+include 'layout/header.php';
 ?>
-<?php include 'layout/header.php'; ?>
+
+<!-- Bootstrap Icons -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+
+<style>
+    .hover-shadow:hover {
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.15);
+        transition: 0.3s;
+    }
+</style>
 
 <body>
-    <div>
-        <?php include 'layout/layout.php'; ?>
-        <div class="container">
-            <a href="barang_form.php" class="btn btn-primary mt-5">Tambah Barang</a>
-            <?php
-            if (mysqli_num_rows($result) > 0) {
-                echo '<div class="row row-cols-1 row-cols-md-5 g-4 mt-2 mb-5">';
-                while ($row = mysqli_fetch_assoc($result)) {
-                    echo "
-                        <div class='col'>
-                        <div class='card h-100'>
-                            <img src='img/" . $row['gambar'] . "' class='card-img-top object-fit-cover' style='height: 200px;' alt='" . $row['gambar'] . "'>
-                            <div class='card-body'>
-                                <h5 class='card-title'>" . $row['nama'] . "</h5>
-                                <p class='card-text'>" . $row['keterangan'] . "</p>
-                                <p class='card-text'>Harga: " . $row['harga'] . " Stok: " . $row['stok'] . "</p>
-                                <a href='barang_form.php?id=" . $row['id'] . "' class='btn btn-primary'>Edit</a>
-                                <button class='btn btn-danger btn-delete' data-id='" . $row['id'] . "'>Hapus</button>
+    <?php include 'layout/layout.php'; ?>
+    <div class="container py-4">
+        <div class="d-flex justify-content-between align-items-center mb-3">
+            <h2 class="mb-0">Daftar Barang</h2>
+            <?php if ($isAdmin): ?>
+                <a href="barang_form.php" class="btn btn-success">
+                    <i class="bi bi-plus-circle"></i> Tambah Barang
+                </a>
+            <?php endif; ?>
+        </div>
+
+        <?php if (mysqli_num_rows($barang) > 0): ?>
+            <div class="row row-cols-1 row-cols-sm-2 row-cols-md-4 row-cols-lg-5 g-4">
+                <?php while ($row = mysqli_fetch_assoc($barang)): ?>
+                    <div class="col">
+                        <div class="card h-100 shadow-sm border-0 hover-shadow">
+                            <img
+                                src="img/<?= htmlspecialchars($row['gambar']) ?>"
+                                alt="<?= htmlspecialchars($row['nama']) ?>"
+                                class="card-img-top rounded-top object-fit-cover"
+                                style="height: 180px; object-fit: cover;">
+                            <div class="card-body d-flex flex-column">
+                                <h5 class="card-title"><?= htmlspecialchars($row['nama']) ?></h5>
+                                <p class="card-text small text-muted"><?= htmlspecialchars($row['keterangan']) ?></p>
+                                <p class="card-text fw-bold">
+                                    Rp <?= number_format($row['harga'], 0, ',', '.') ?><br>
+                                    <span class="text-secondary fw-normal">Stok: <?= htmlspecialchars($row['stok']) ?></span>
+                                </p>
+                                <div class="mt-auto">
+                                    <?php if ($isAdmin): ?>
+                                        <a href="barang_form.php?id=<?= $row['id'] ?>" class="btn btn-outline-primary btn-sm me-1">
+                                            <i class="bi bi-pencil-square"></i> Edit
+                                        </a>
+                                        <button class="btn btn-outline-danger btn-sm btn-delete" data-id="<?= $row['id'] ?>">
+                                            <i class="bi bi-trash"></i> Hapus
+                                        </button>
+                                    <?php else: ?>
+                                        <button class="btn btn-primary w-100">
+                                            <i class="bi bi-cart-plus"></i> Beli
+                                        </button>
+                                    <?php endif; ?>
+                                </div>
                             </div>
                         </div>
                     </div>
-                    ";
-                }
-            } else {
-                echo "<div class='alert alert-warning mt-3'>Tidak ada barang.</div>";
-            }
-            ?>
-        </div>
-    </div>
+                <?php endwhile; ?>
+            </div>
+        <?php else: ?>
+            <div class="alert alert-warning mt-4">Tidak ada barang.</div>
+        <?php endif; ?>
     </div>
 
+    <!-- SweetAlert -->
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script>
         document.querySelectorAll('.btn-delete').forEach(button => {
             button.addEventListener('click', function(e) {
                 e.preventDefault();
-
-                const userId = this.getAttribute('data-id');
+                const id = this.dataset.id;
 
                 Swal.fire({
                     title: 'Yakin mau hapus?',
@@ -61,9 +93,17 @@ $result = mysqli_query($conn, $sql);
                     cancelButtonColor: '#3085d6',
                     confirmButtonText: 'Ya, hapus!',
                     cancelButtonText: 'Batal'
-                }).then((result) => {
+                }).then(result => {
                     if (result.isConfirmed) {
-                        window.location.href = `src/barang/barang_delete.php?id=${userId}`;
+                        Swal.fire({
+                            title: "Deleted!",
+                            text: "Barang berasil dihapus.",
+                            icon: "success"
+                        }).then(oke => {
+                            if (oke.isConfirmed) {
+                                window.location.href = `src/barang/barang_delete.php?id=${id}`;
+                            }
+                        });
                     }
                 });
             });

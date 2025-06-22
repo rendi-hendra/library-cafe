@@ -1,49 +1,58 @@
-<nav
-    class="navbar navbar-expand-lg bg-body-tertiary bg-dark border-bottom border-body"
-    data-bs-theme="dark">
+<?php
+// Ambil path aktif dari URI
+$activePage = basename($_SERVER['REQUEST_URI']);
+?>
+
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark border-bottom shadow-sm">
     <div class="container">
-        <a href="barang.php" class="navbar-brand fw-semibold">Library Cafe</a>
-        <button
-            class="navbar-toggler"
-            type="button"
-            data-bs-toggle="collapse"
-            data-bs-target="#navbarSupportedContent"
-            aria-controls="navbarSupportedContent"
-            aria-expanded="false"
-            aria-label="Toggle navigation">
+        <a class="navbar-brand fw-semibold" href="barang.php">Library Cafe</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
             <span class="navbar-toggler-icon"></span>
         </button>
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ms-auto align-items-lg-center">
                 <li class="nav-item">
-                    <?php
-                    if ($_SERVER['REQUEST_URI'] == "/library-cafe/barang.php") {
-                        echo '<a class="nav-link active" href="barang.php">Barang</a>';
-                    } else {
-                        echo '<a class="nav-link" href="barang.php">Barang</a>';
-                    }
-                    ?>
+                    <a class="nav-link <?= $activePage === 'barang.php' ? 'active fw-bold' : '' ?>" href="barang.php">
+                        Barang
+                    </a>
                 </li>
                 <li class="nav-item">
-                    <?php
-                    if ($_SERVER['REQUEST_URI'] == "/library-cafe/transaksi.php") {
-                        echo '<a class="nav-link active" href="transaksi.php">Transaksi</a>';
-                    } else {
-                        echo '<a class="nav-link" href="transaksi.php">Transaksi</a>';
-                    }
-                    ?>
+                    <a class="nav-link <?= $activePage === 'transaksi.php' ? 'active fw-bold' : '' ?>" href="transaksi.php">
+                        Transaksi
+                    </a>
                 </li>
                 <li class="nav-item">
-                    <?php
-                    if ($_SERVER['REQUEST_URI'] == "/library-cafe/user.php") {
-                        echo '<a class="nav-link active" href="user.php">User</a>';
-                    } else {
-                        echo '<a class="nav-link" href="user.php">User</a>';
-                    }
-                    ?>
+                    <a class="nav-link <?= $activePage === 'user.php' ? 'active fw-bold' : '' ?>" href="user.php">
+                        User
+                    </a>
                 </li>
-                <a href="logout.php" class="btn btn-danger ms-3">Logout</a>
+                <li class="nav-item ms-lg-3 mt-2 mt-lg-0">
+                    <button class="btn btn-outline-light btn-sm btn-logout">Logout</button>
+                </li>
             </ul>
         </div>
     </div>
 </nav>
+
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script>
+        document.querySelectorAll('.btn-logout').forEach(button => {
+            button.addEventListener('click', function (e) {
+                e.preventDefault();
+                Swal.fire({
+                    title: 'Yakin mau logout?',
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#d33',
+                    cancelButtonColor: '#3085d6',
+                    confirmButtonText: 'Ya!',
+                    cancelButtonText: 'Batal'
+                }).then(result => {
+                    if (result.isConfirmed) {
+                        window.location.href = 'logout.php';
+                    }
+                });
+            });
+        });
+    </script>

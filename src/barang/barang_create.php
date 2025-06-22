@@ -1,61 +1,55 @@
-<?php include '../../connectdb.php'; ?>
-
 <?php
+include '../../connectdb.php';
+
+function alertAndRedirect($message)
+{
+    echo "<script>
+        alert('$message');
+        document.location.href = '/library-cafe/barang.php';
+    </script>";
+    exit;
+}
+
+function validateAndUploadImage()
+{
+    $file = $_FILES['gambar'];
+
+    if ($file['error'] === 4) {
+        alertAndRedirect('Pilih gambar terlebih dahulu!');
+    }
+
+    $allowedExtensions = ['jpg', 'jpeg', 'png'];
+    $ext = strtolower(pathinfo($file['name'], PATHINFO_EXTENSION));
+
+    if (!in_array($ext, $allowedExtensions)) {
+        alertAndRedirect('Yang anda upload bukan gambar!');
+    }
+
+    if ($file['size'] > 2 * 1024 * 1024) {
+        alertAndRedirect('Ukuran gambar terlalu besar!');
+    }
+
+    $newName = uniqid() . '.' . $ext;
+    move_uploaded_file($file['tmp_name'], '../../img/' . $newName);
+
+    return $newName;
+}
+
 if (isset($_POST['create'])) {
-    $namaFile = $_FILES['gambar']['name'];
-    $ukuranFile = $_FILES['gambar']['size'];
-    $error = $_FILES['gambar']['error'];
-    $tmpName = $_FILES['gambar']['tmp_name'];
+    $gambar = validateAndUploadImage();
 
-    if ($error === 4) {
-        echo "
-        <script>
-            alert('Pilih gambar terlebih dahulu!');
-            document.location.href = '/library-cafe/barang.php';
-        </script>
-    ";
-        die;
-    }
-
-    $extensionFile = ['jpg', 'jpeg', 'png'];
-    $format = pathinfo($namaFile, PATHINFO_EXTENSION);
-
-    if (!in_array($format, $extensionFile)) {
-        echo "
-            <script>
-                alert('Yang anda upload bukan gambar!');
-                document.location.href = '/library-cafe/barang.php';
-            </script>
-        ";
-        die;
-    }
-
-    if ($ukuranFile > 2097152) {
-        echo "
-            <script>
-                alert('Ukuran gambar terlalu besar!');
-                document.location.href = '/library-cafe/barang.php';
-            </script>
-        ";
-        die;
-    }
-
-    $namaFileBaru = uniqid();
-    $namaFileBaru .= '.';
-    $namaFileBaru .= $format;
-
-    
-    $nama = mysqli_real_escape_string($conn, $_POST['nama']);
-    $harga = mysqli_real_escape_string($conn, $_POST['harga']);
-    $stok = mysqli_real_escape_string($conn, $_POST['stok']);
+    // Menghindari SQL injection
+    $nama       = mysqli_real_escape_string($conn, $_POST['nama']);
+    $harga      = mysqli_real_escape_string($conn, $_POST['harga']);
+    $stok       = mysqli_real_escape_string($conn, $_POST['stok']);
     $keterangan = mysqli_real_escape_string($conn, $_POST['keterangan']);
-    
-    $sql = "INSERT INTO barang (nama, harga, stok, gambar, keterangan) VALUES ('$nama', '$harga', '$stok', '$namaFileBaru', '$keterangan')";
-    move_uploaded_file($tmpName, '../../img/' . $namaFileBaru);
+
+    $sql = "INSERT INTO barang (nama, harga, stok, gambar, keterangan) 
+            VALUES ('$nama', '$harga', '$stok', '$gambar', '$keterangan')";
 
     if (mysqli_query($conn, $sql)) {
         header("Location: ../../barang.php");
-        echo "<div class='alert alert-success'>Data berhasil ditambahkan.</div>";
+        exit;
     } else {
         echo "<div class='alert alert-danger'>Error: " . mysqli_error($conn) . "</div>";
     }
