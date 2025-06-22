@@ -1,6 +1,11 @@
 <?php
 // Ambil path aktif dari URI
 $activePage = basename($_SERVER['REQUEST_URI']);
+if (session_status() == PHP_SESSION_NONE) {
+    session_start();
+}
+
+$isAdmin = isset($_SESSION['admin']);
 ?>
 
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark border-bottom shadow-sm">
@@ -17,16 +22,25 @@ $activePage = basename($_SERVER['REQUEST_URI']);
                         Barang
                     </a>
                 </li>
+                <?php if (!$isAdmin): ?>
+                <li class="nav-item">
+                    <a class="nav-link <?= $activePage === 'keranjang.php' ? 'active fw-bold' : '' ?>" href="keranjang.php">
+                        Keranjang
+                    </a>
+                </li>
                 <li class="nav-item">
                     <a class="nav-link <?= $activePage === 'transaksi.php' ? 'active fw-bold' : '' ?>" href="transaksi.php">
                         Transaksi
                     </a>
                 </li>
+                <?php endif; ?>
+                <?php if ($isAdmin): ?>
                 <li class="nav-item">
                     <a class="nav-link <?= $activePage === 'user.php' ? 'active fw-bold' : '' ?>" href="user.php">
                         User
                     </a>
                 </li>
+                <?php endif; ?>
                 <li class="nav-item ms-lg-3 mt-2 mt-lg-0">
                     <button class="btn btn-outline-light btn-sm btn-logout">Logout</button>
                 </li>

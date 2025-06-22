@@ -27,7 +27,7 @@ include 'layout/header.php';
     <?php include 'layout/layout.php'; ?>
     <div class="container py-4">
         <div class="d-flex justify-content-between align-items-center mb-3">
-            <h2 class="mb-0">Daftar Barang</h2>
+            <!-- <h2 class="mb-0">Daftar Barang</h2> -->
             <?php if ($isAdmin): ?>
                 <a href="barang_form.php" class="btn btn-success">
                     <i class="bi bi-plus-circle"></i> Tambah Barang
@@ -36,10 +36,10 @@ include 'layout/header.php';
         </div>
 
         <?php if (mysqli_num_rows($barang) > 0): ?>
-            <div class="row row-cols-1 row-cols-sm-2 row-cols-md-4 row-cols-lg-5 g-4">
+            <div class="row row-cols-1 row-cols-sm-2 row-cols-md-4 row-cols-lg-6 g-4 mb-2">
                 <?php while ($row = mysqli_fetch_assoc($barang)): ?>
                     <div class="col">
-                        <div class="card h-100 shadow-sm border-0 hover-shadow">
+                        <div class="card h-100 border-0 hover-shadow shadow-sm">
                             <img
                                 src="img/<?= htmlspecialchars($row['gambar']) ?>"
                                 alt="<?= htmlspecialchars($row['nama']) ?>"
@@ -61,8 +61,8 @@ include 'layout/header.php';
                                             <i class="bi bi-trash"></i> Hapus
                                         </button>
                                     <?php else: ?>
-                                        <button class="btn btn-primary w-100">
-                                            <i class="bi bi-cart-plus"></i> Beli
+                                        <button class="btn btn-outline-success w-100 btn-buy" data-id="<?= $row['id'] ?>">
+                                            <i class="bi bi-cart-plus"></i> Keranjang
                                         </button>
                                     <?php endif; ?>
                                 </div>
@@ -79,6 +79,35 @@ include 'layout/header.php';
     <!-- SweetAlert -->
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script>
+        document.querySelectorAll('.btn-buy').forEach(button => {
+            button.addEventListener('click', function(e) {
+                const id = this.dataset.id;
+
+                fetch(`src/keranjang/keranjang_create.php?id=${id}`)
+                    .then(res => {
+                        if (!res.ok) throw new Error("Gagal menambahkan ke keranjang");
+                        return res.text(); // atau .json jika responnya json
+                    })
+                    .then(data => {
+                        Swal.fire({
+                            title: 'Berhasil!',
+                            text: 'Barang telah ditambahkan ke keranjang.',
+                            icon: 'success',
+                            showCancelButton: true,
+                            confirmButtonText: 'Lihat Keranjang',
+                            cancelButtonText: 'Lanjut Belanja'
+                        }).then(result => {
+                            if (result.isConfirmed) {
+                                window.location.href = 'keranjang.php';
+                            }
+                        });
+                    })
+                    .catch(error => {
+                        Swal.fire('Error', error.message, 'error');
+                    });
+            });
+        });
+
         document.querySelectorAll('.btn-delete').forEach(button => {
             button.addEventListener('click', function(e) {
                 e.preventDefault();

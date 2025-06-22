@@ -13,10 +13,11 @@ if (isset($_POST['login'])) {
         $row = mysqli_fetch_assoc($result);
         if (password_verify($password, $row["password"])) {
             $_SESSION["login"] = true;
+            $_SESSION["user_id"] = $row['id'];
             if ($row['role'] === 'admin') {
                 $_SESSION["admin"] = true;
             }
-            header("Location: ../../user.php");
+            header("Location: ../../barang.php");
             exit;
         } else {
             echo "

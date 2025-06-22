@@ -7,7 +7,7 @@ if (isset($_POST['submit'])) {
     $password = mysqli_real_escape_string($conn, $_POST['password']);
     $hash = password_hash($password, PASSWORD_DEFAULT);
     
-    $sql = "INSERT INTO user (nama, email, password) VALUES ('$nama', '$email', '$hash')";
+    $sql = "INSERT INTO user (nama, email, password, role) VALUES ('$nama', '$email', '$hash', 'user')";
     if (mysqli_query($conn, $sql)) {
         header("Location: ../../login.php");
         echo "<div class='alert alert-success'>Data berhasil ditambahkan.</div>";
