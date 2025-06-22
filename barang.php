@@ -8,7 +8,7 @@ if (!isset($_SESSION["login"])) {
 }
 
 $isAdmin = isset($_SESSION['admin']);
-$barang = mysqli_query($conn, "SELECT * FROM barang");
+$barang = mysqli_query($conn, "SELECT * FROM barang WHERE status = 'aktif'");
 
 include 'layout/header.php';
 ?>

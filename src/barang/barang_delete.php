@@ -7,21 +7,22 @@ if ($id <= 0) {
     exit("ID tidak valid.");
 }
 
+// Cek gambar jika ada
 $query = mysqli_query($conn, "SELECT gambar FROM barang WHERE id = $id");
 $data = mysqli_fetch_assoc($query);
 
-if ($data && !empty($data['gambar'])) {
-    $gambarPath = '../../img/' . $data['gambar'];
-    if (file_exists($gambarPath)) {
-        unlink($gambarPath);
-    }
-}
+// if ($data && !empty($data['gambar'])) {
+//     $gambarPath = '../../img/' . $data['gambar'];
+//     if (file_exists($gambarPath)) {
+//         unlink($gambarPath); // Hapus gambar dari folder
+//     }
+// }
 
-// Hapus data dari database
-$sql = "DELETE FROM barang WHERE id = $id";
+// Update status barang menjadi nonaktif (soft delete)
+$sql = "UPDATE barang SET status = 'nonaktif' WHERE id = $id";
 if (mysqli_query($conn, $sql)) {
     header("Location: ../../barang.php");
     exit;
 } else {
-    echo "Gagal menghapus data: " . mysqli_error($conn);
+    echo "Gagal menonaktifkan barang: " . mysqli_error($conn);
 }
