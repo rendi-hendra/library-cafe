@@ -19,7 +19,7 @@ $result = mysqli_query($conn, $sql);
             <a href="barang_form.php" class="btn btn-primary mt-5">Tambah Barang</a>
             <?php
             if (mysqli_num_rows($result) > 0) {
-                echo '<div class="row row-cols-1 row-cols-md-3 g-4 mt-2 mb-5">';
+                echo '<div class="row row-cols-1 row-cols-md-5 g-4 mt-2 mb-5">';
                 while ($row = mysqli_fetch_assoc($result)) {
                     echo "
                         <div class='col'>
@@ -28,7 +28,7 @@ $result = mysqli_query($conn, $sql);
                             <div class='card-body'>
                                 <h5 class='card-title'>" . $row['nama'] . "</h5>
                                 <p class='card-text'>" . $row['keterangan'] . "</p>
-                                <p class='card-text'>Harga:" . $row['harga'] . " Stok:" . $row['stok'] . "</p>
+                                <p class='card-text'>Harga: " . $row['harga'] . " Stok: " . $row['stok'] . "</p>
                                 <a href='barang_form.php?id=" . $row['id'] . "' class='btn btn-primary'>Edit</a>
                                 <button class='btn btn-danger btn-delete' data-id='" . $row['id'] . "'>Hapus</button>
                             </div>
