@@ -25,20 +25,18 @@ include 'layout/header.php';
 
 <body>
     <?php include 'layout/layout.php'; ?>
-    <div class="container py-4">
+    <div class="container-fluid">
         <div class="d-flex justify-content-between align-items-center mb-3">
-            <!-- <h2 class="mb-0">Daftar Barang</h2> -->
             <?php if ($isAdmin): ?>
-                <a href="barang_form.php" class="btn btn-success">
+                <a href="barang_form.php" class="btn btn-success mt-5">
                     <i class="bi bi-plus-circle"></i> Tambah Barang
                 </a>
             <?php endif; ?>
         </div>
-
         <?php if (mysqli_num_rows($barang) > 0): ?>
-            <div class="row row-cols-1 row-cols-sm-2 row-cols-md-4 row-cols-lg-6 g-4 mb-2">
+            <div class="row row-cols-1 row-cols-sm-2 row-cols-md-4 row-cols-lg-6 g-5 pb-2 mt-5">
                 <?php while ($row = mysqli_fetch_assoc($barang)): ?>
-                    <div class="col">
+                    <div class="col mb-4">
                         <div class="card h-100 border-0 hover-shadow shadow-sm">
                             <img
                                 src="img/<?= htmlspecialchars($row['gambar']) ?>"

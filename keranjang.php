@@ -36,7 +36,7 @@ include 'layout/header.php';
 
 <body>
     <?php include 'layout/layout.php'; ?>
-    <div class="container py-4">
+    <div class="container-fluid py-4">
         <h2 class="mb-4">Keranjang</h2>
         <div class="row">
             <div class="col-md-8">
@@ -59,8 +59,8 @@ include 'layout/header.php';
                             <div id="cartItems">
                                 <div class="card mb-3 cart-item" data-price="<?= $item['harga'] ?>" data-id="<?= $item['id_barang'] ?>">
                                     <div class="card-body d-flex align-items-center">
-                                        <input class="form-check-input me-3 item-checkbox" type="checkbox">
-                                        <img src="img/<?= htmlspecialchars($item['gambar']) ?>" width="80" height="80" class="me-3 rounded" alt="<?= htmlspecialchars($item['nama']) ?>">
+                                        <input class="form-check-input ml-0 item-checkbox" type="checkbox">
+                                        <img src="img/<?= htmlspecialchars($item['gambar']) ?>" width="80" height="80" class="ml-4 mr-3 rounded" alt="<?= htmlspecialchars($item['nama']) ?>">
                                         <div class="flex-grow-1">
                                             <h5 class="mb-1"><?= htmlspecialchars($item['nama']) ?></h5>
                                             <p class="mb-1 text-muted">Rp<span class="item-price"><?= number_format($item['harga'], 0, ',', '.') ?></span></p>

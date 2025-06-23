@@ -8,15 +8,15 @@ if (session_status() == PHP_SESSION_NONE) {
 $isAdmin = isset($_SESSION['admin']);
 ?>
 
-<nav class="navbar navbar-expand-lg navbar-dark bg-success border-bottom shadow-sm">
-    <div class="container">
+<nav class="navbar navbar-expand-lg navbar-dark bg-success border-bottom shadow-sm py-3">
+    <div class="container-fluid">
         <a class="navbar-brand fw-semibold" href="barang.php">Library Cafe</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
             <span class="navbar-toggler-icon"></span>
         </button>
 
         <div class="collapse navbar-collapse" id="navbarNav">
-            <ul class="navbar-nav ms-auto align-items-lg-center">
+            <ul class="navbar-nav ml-auto align-items-lg-center">
                 <li class="nav-item">
                     <a class="nav-link <?= $activePage === 'barang.php' ? 'active fw-bold' : '' ?>" href="barang.php">
                         Barang

@@ -27,70 +27,122 @@ $barang_terlaris = mysqli_query($conn, "
 ?>
 
 <body>
-<?php include 'layout/layout.php'; ?>
-<div class="container py-4">
-    <h2 class="mb-4 fw-bold">Dashboard Laporan Admin</h2>
+    <?php include 'layout/layout.php'; ?>
+    <div class="container-fluid">
+        <!-- <h2 class="mb-4 fw-bold">Dashboard Laporan Admin</h2> -->
 
-    <!-- Stat cards -->
-    <div class="row g-4 mb-5">
-        <div class="col-md-4">
-            <div class="card shadow-sm border-0 rounded-4 h-100 bg-light">
-                <div class="card-body d-flex flex-column justify-content-center text-center">
-                    <i class="bi bi-cart4 display-4 text-primary mb-3"></i>
-                    <h5 class="fw-semibold">Total Transaksi</h5>
-                    <p class="fs-3 mb-0"><?= $total_transaksi ?></p>
-                </div>
-            </div>
+        <!-- Page Heading -->
+        <div class="d-sm-flex align-items-center justify-content-center mb-4">
+            <h1 class="h3 mb-4 text-gray-800 mt-5">Dashboard Laporan Admin</h1>
         </div>
-        <div class="col-md-4">
-            <div class="card shadow-sm border-0 rounded-4 h-100 bg-light">
-                <div class="card-body d-flex flex-column justify-content-center text-center">
-                    <i class="bi bi-cash-coin display-4 text-success mb-3"></i>
-                    <h5 class="fw-semibold">Total Pendapatan</h5>
-                    <p class="fs-3 mb-0">Rp <?= number_format($total_pendapatan, 0, ',', '.') ?></p>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-4">
-            <div class="card shadow-sm border-0 rounded-4 h-100 bg-light">
-                <div class="card-body d-flex flex-column justify-content-center text-center">
-                    <i class="bi bi-people display-4 text-dark mb-3"></i>
-                    <h5 class="fw-semibold">Jumlah Pengguna</h5>
-                    <p class="fs-3 mb-0"><?= $total_user ?></p>
-                </div>
-            </div>
-        </div>
-    </div>
 
-    <!-- Barang Terlaris -->
-    <div class="card shadow-sm border-0 rounded-4">
-        <div class="card-body">
-            <h4 class="fw-bold mb-3">Barang Terlaris</h4>
-            <table class="table table-hover">
-                <thead class="table-light">
-                    <tr>
-                        <th>No</th>
-                        <th>Nama Barang</th>
-                        <th>Total Terjual</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <?php $no = 1; while ($row = mysqli_fetch_assoc($barang_terlaris)): ?>
+        <!-- Stat cards -->
+        <div class="row justify-content-center">
+            <div class="col-xl-3 col-md-6 mb-4">
+                <div class="card border-left-primary shadow h-100 py-2">
+                    <div class="card-body">
+                        <div class="row no-gutters align-items-center">
+                            <div class="col mr-2">
+                                <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">Total Transaksi</div>
+                                <div class="h5 mb-0 font-weight-bold text-gray-800"><?= $total_transaksi ?></div>
+                            </div>
+                            <div class="col-auto">
+                                <i class="fas fa-calendar fa-2x text-gray-300"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-3 col-md-6 mb-4">
+                <div class="card border-left-success shadow h-100 py-2">
+                    <div class="card-body">
+                        <div class="row no-gutters align-items-center">
+                            <div class="col mr-2">
+                                <div class="text-xs font-weight-bold text-success text-uppercase mb-1">Total Pendapatan</div>
+                                <div class="h5 mb-0 font-weight-bold text-gray-800">Rp <?= number_format($total_pendapatan, 0, ',', '.') ?></div>
+                            </div>
+                            <div class="col-auto">
+                                <i class="fas fa-dollar-sign fa-2x text-gray-300"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-3 col-md-6 mb-4">
+                <div class="card border-left-info shadow h-100 py-2">
+                    <div class="card-body">
+                        <div class="row no-gutters align-items-center">
+                            <div class="col mr-2">
+                                <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">Jumlah Pengguna</div>
+                                <div class="h5 mb-0 font-weight-bold text-gray-800"><?= $total_user ?></div>
+                            </div>
+                            <div class="col-auto">
+                                <i class="fas fa-clipboard-list fa-2x text-gray-300"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Barang Terlaris -->
+        <div class="card shadow-sm border-0 rounded-4">
+            <div class="card-body">
+                <h4 class="fw-bold mb-3">Barang Terlaris</h4>
+                <table class="table table-hover">
+                    <thead class="table-light">
                         <tr>
-                            <td><?= $no++ ?></td>
-                            <td><?= htmlspecialchars($row['nama']) ?></td>
-                            <td><?= $row['total_terjual'] ?></td>
+                            <th>No</th>
+                            <th>Nama Barang</th>
+                            <th>Total Terjual</th>
                         </tr>
-                    <?php endwhile; ?>
-                    <?php if ($no === 1): ?>
-                        <tr><td colspan="3" class="text-center text-muted">Belum ada data penjualan.</td></tr>
-                    <?php endif; ?>
-                </tbody>
-            </table>
+                    </thead>
+                    <tbody>
+                        <?php $no = 1;
+                        while ($row = mysqli_fetch_assoc($barang_terlaris)): ?>
+                            <tr>
+                                <td><?= $no++ ?></td>
+                                <td><?= htmlspecialchars($row['nama']) ?></td>
+                                <td><?= $row['total_terjual'] ?></td>
+                            </tr>
+                        <?php endwhile; ?>
+                        <?php if ($no === 1): ?>
+                            <tr>
+                                <td colspan="3" class="text-center text-muted">Belum ada data penjualan.</td>
+                            </tr>
+                        <?php endif; ?>
+                    </tbody>
+                </table>
+            </div>
         </div>
-    </div>
-</div>
 
-<!-- Bootstrap Icons CDN -->
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+        <!-- Content Row -->
+        <div class="row mt-5">
+            <div class="col-xl-8 col-lg-7">
+                <!-- Area Chart -->
+                <div class="card shadow mb-4">
+                    <div class="card-header py-3">
+                        <h6 class="m-0 font-weight-bold text-primary">Area Chart</h6>
+                    </div>
+                    <div class="card-body">
+                        <div class="chart-area">
+                            <canvas id="myAreaChart"></canvas>
+                        </div>
+                        <hr>
+                        Styling for the area chart can be found in the
+                        <code>/js/demo/chart-area-demo.js</code> file.
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+
+    <!-- Bootstrap Icons CDN -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+
+    <!-- Page level custom scripts -->
+    <script src="js/demo/chart-area-demo.js"></script>
+    <script src="js/demo/chart-pie-demo.js"></script>
 </body>
