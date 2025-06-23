@@ -8,7 +8,7 @@ if (session_status() == PHP_SESSION_NONE) {
 $isAdmin = isset($_SESSION['admin']);
 ?>
 
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark border-bottom shadow-sm">
+<nav class="navbar navbar-expand-lg navbar-dark bg-success border-bottom shadow-sm">
     <div class="container">
         <a class="navbar-brand fw-semibold" href="barang.php">Library Cafe</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
@@ -22,6 +22,13 @@ $isAdmin = isset($_SESSION['admin']);
                         Barang
                     </a>
                 </li>
+                <?php if ($isAdmin): ?>
+                <li class="nav-item">
+                    <a class="nav-link <?= $activePage === 'laporan.php' ? 'active fw-bold' : '' ?>" href="laporan.php">
+                        Laporan
+                    </a>
+                </li>
+                <?php endif; ?>
                 <?php if (!$isAdmin): ?>
                 <li class="nav-item">
                     <a class="nav-link <?= $activePage === 'keranjang.php' ? 'active fw-bold' : '' ?>" href="keranjang.php">

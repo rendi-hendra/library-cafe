@@ -19,7 +19,7 @@ include 'layout/header.php';
     <?php include 'layout/layout.php'; ?>
     <div class="container py-5">
         <div class="card shadow-lg border-0">
-            <div class="card-header bg-dark text-white d-flex justify-content-between align-items-center">
+            <div class="card-header bg-success text-white d-flex justify-content-between align-items-center">
                 <h4 class="mb-0">Daftar Pengguna</h4>
             </div>
             <div class="card-body">
