@@ -5,4 +5,4 @@
 - ~~transaksi~~
 - ~~role~~
 - ~~checkout~~
-- foreign key delete
+- ~~soft delete barang~~
