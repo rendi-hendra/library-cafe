@@ -28,13 +28,13 @@ include 'layout/header.php';
     <div class="container-fluid">
         <div class="d-flex justify-content-between align-items-center mb-3">
             <?php if ($isAdmin): ?>
-                <a href="barang_form.php" class="btn btn-success mt-5">
+                <a href="barang_form.php" class="btn btn-primary mt-2">
                     <i class="bi bi-plus-circle"></i> Tambah Barang
                 </a>
             <?php endif; ?>
         </div>
         <?php if (mysqli_num_rows($barang) > 0): ?>
-            <div class="row row-cols-1 row-cols-sm-2 row-cols-md-4 row-cols-lg-6 g-5 pb-2 mt-5">
+            <div class="row row-cols-1 row-cols-sm-2 row-cols-md-4 row-cols-lg-6 g-5 pb-2 mt-3">
                 <?php while ($row = mysqli_fetch_assoc($barang)): ?>
                     <div class="col mb-4">
                         <div class="card h-100 border-0 hover-shadow shadow-sm">
@@ -59,7 +59,7 @@ include 'layout/header.php';
                                             <i class="bi bi-trash"></i> Hapus
                                         </button>
                                     <?php else: ?>
-                                        <button class="btn btn-outline-success w-100 btn-buy" data-id="<?= $row['id'] ?>">
+                                        <button class="btn btn-outline-primary w-100 btn-buy" data-id="<?= $row['id'] ?>">
                                             <i class="bi bi-cart-plus"></i> Keranjang
                                         </button>
                                     <?php endif; ?>
@@ -73,6 +73,7 @@ include 'layout/header.php';
             <div class="alert alert-warning mt-4">Tidak ada barang.</div>
         <?php endif; ?>
     </div>
+    <?php include 'layout/footer.php'; ?>
 
     <!-- SweetAlert -->
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>

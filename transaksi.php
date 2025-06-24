@@ -43,7 +43,7 @@ include 'layout/header.php';
 
 <body>
     <?php include 'layout/layout.php'; ?>
-    <div class="container py-4">
+    <div class="container-fluid">
         <h3 class="mb-4">Riwayat Transaksi</h3>
 
         <?php if (empty($riwayat)): ?>
@@ -61,7 +61,7 @@ include 'layout/header.php';
                             <div>
                                 <span class="ms-3"><?= date('j M Y', strtotime($trx['tanggal'])) ?></span>
                                 <?php if ($trx['status'] === 'selesai'): ?>
-                                    <span class="badge bg-success ms-2">Selesai</span>
+                                    <span class="badge bg-success ml-2 text-white">Selesai</span>
                                 <?php else: ?>
                                     <span class="badge bg-secondary ms-2"><?= ucfirst($trx['status']) ?></span>
                                 <?php endif; ?>
@@ -73,7 +73,7 @@ include 'layout/header.php';
                         </div>
                         <?php foreach ($trx['items'] as $item): ?>
                             <div class="d-flex align-items-center border-top pt-3">
-                                <img src="img/<?= htmlspecialchars($item['gambar']) ?>" width="64" height="64" class="rounded me-3" alt="<?= htmlspecialchars($item['nama']) ?>">
+                                <img src="img/<?= htmlspecialchars($item['gambar']) ?>" width="64" height="64" class="rounded mx-3" alt="<?= htmlspecialchars($item['nama']) ?>">
                                 <div>
                                     <div class="fw-semibold"><?= htmlspecialchars($item['nama']) ?></div>
                                     <div class="text-muted small"><?= $item['jumlah'] ?> barang x Rp<?= number_format($item['harga'], 0, ',', '.') ?></div>
@@ -85,4 +85,5 @@ include 'layout/header.php';
             <?php endforeach; ?>
         <?php endif; ?>
     </div>
+    <?php include 'layout/footer.php'; ?>
 </body>

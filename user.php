@@ -17,9 +17,9 @@ include 'layout/header.php';
 
 <body>
     <?php include 'layout/layout.php'; ?>
-    <div class="container py-5">
+    <div class="container-fluid mt-5">
         <div class="card shadow-lg border-0">
-            <div class="card-header bg-success text-white d-flex justify-content-between align-items-center">
+            <div class="card-header bg-gradient-primary text-white d-flex justify-content-between align-items-center">
                 <h4 class="mb-0">Daftar Pengguna</h4>
             </div>
             <div class="card-body">
@@ -63,6 +63,8 @@ include 'layout/header.php';
             </div>
         </div>
     </div>
+    <?php include 'layout/footer.php'; ?>
+    
 
     <!-- Bootstrap Icons -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">

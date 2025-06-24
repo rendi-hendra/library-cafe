@@ -36,14 +36,14 @@ include 'layout/header.php';
 
 <body>
     <?php include 'layout/layout.php'; ?>
-    <div class="container-fluid py-4">
+    <div class="container-fluid">
         <h2 class="mb-4">Keranjang</h2>
         <div class="row">
             <div class="col-md-8">
                 <!-- Daftar item keranjang -->
                 <div id="cartItems">
                     <?php if (empty($cartItems)): ?>
-                        <div class="text-center p-5 bg-light rounded shadow-sm" style="margin-top: 40px;">
+                        <div class="text-center p-5 bg-white rounded shadow-sm" style="margin-top: 40px;">
                             <img src="https://lf-web-assets.tokopedia-static.net/obj/tokopedia-web-sg/backfunnel_v3/4d27af6a.svg" alt="Keranjang Kosong" width="120" class="mb-3">
                             <h4 class="fw-bold">Wah, keranjang belanjamu kosong</h4>
                             <p class="text-muted">Yuk, isi dengan barang-barang impianmu!</p>
@@ -85,7 +85,7 @@ include 'layout/header.php';
 
             <!-- Ringkasan belanja -->
             <div class="col-md-4" style="margin-top: 40px;">
-                <div class="card">
+                <div class="card rounded shadow-sm bg-white">
                     <div class="card-body">
                         <h5 class="card-title">Ringkasan Belanja</h5>
                         <p>Total: <strong>Rp<span id="totalHarga">0</span></strong></p>
@@ -95,6 +95,7 @@ include 'layout/header.php';
             </div>
         </div>
     </div>
+    <?php include 'layout/footer.php'; ?>
 
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script>
