@@ -47,7 +47,7 @@ include 'layout/header.php';
                                 <div class="h5 mb-0 font-weight-bold text-gray-800"><?= $total_transaksi ?></div>
                             </div>
                             <div class="col-auto">
-                                <i class="fas fa-calendar fa-2x text-gray-300"></i>
+                                <i class="fa-solid fa-money-bill-transfer fa-2x text-gray-300"></i>
                             </div>
                         </div>
                     </div>
@@ -77,7 +77,7 @@ include 'layout/header.php';
                                 <div class="h5 mb-0 font-weight-bold text-gray-800"><?= $total_user ?></div>
                             </div>
                             <div class="col-auto">
-                                <i class="fas fa-clipboard-list fa-2x text-gray-300"></i>
+                                <i class="fa-solid fa-user fa-2x text-gray-300"></i>
                             </div>
                         </div>
                     </div>

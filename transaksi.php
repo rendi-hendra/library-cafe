@@ -72,7 +72,7 @@ include 'layout/header.php';
                             </div>
                         </div>
                         <?php foreach ($trx['items'] as $item): ?>
-                            <div class="d-flex align-items-center border-top pt-3">
+                            <div class="d-flex align-items-center border-top py-3">
                                 <img src="img/<?= htmlspecialchars($item['gambar']) ?>" width="64" height="64" class="rounded mx-3" alt="<?= htmlspecialchars($item['nama']) ?>">
                                 <div>
                                     <div class="fw-semibold"><?= htmlspecialchars($item['nama']) ?></div>
