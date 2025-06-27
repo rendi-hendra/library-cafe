@@ -115,34 +115,9 @@ $barang_terlaris = mysqli_query($conn, "
                 </table>
             </div>
         </div>
-
-        <!-- Content Row -->
-        <div class="row mt-5">
-            <div class="col-xl-8 col-lg-7">
-                <!-- Area Chart -->
-                <div class="card shadow mb-4">
-                    <div class="card-header py-3">
-                        <h6 class="m-0 font-weight-bold text-primary">Area Chart</h6>
-                    </div>
-                    <div class="card-body">
-                        <div class="chart-area">
-                            <canvas id="myAreaChart"></canvas>
-                        </div>
-                        <hr>
-                        Styling for the area chart can be found in the
-                        <code>/js/demo/chart-area-demo.js</code> file.
-                    </div>
-                </div>
-            </div>
-        </div>
-
     </div>
 
 
     <!-- Bootstrap Icons CDN -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
-
-    <!-- Page level custom scripts -->
-    <script src="js/demo/chart-area-demo.js"></script>
-    <script src="js/demo/chart-pie-demo.js"></script>
 </body>

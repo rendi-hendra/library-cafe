@@ -61,7 +61,7 @@ include 'layout/header.php';
                             <div>
                                 <span class="ms-3"><?= date('j M Y', strtotime($trx['tanggal'])) ?></span>
                                 <?php if ($trx['status'] === 'selesai'): ?>
-                                    <span class="badge bg-success ms-2">Selesai</span>
+                                    <span class="badge bg-success text-white ms-2">Selesai</span>
                                 <?php else: ?>
                                     <span class="badge bg-secondary ms-2"><?= ucfirst($trx['status']) ?></span>
                                 <?php endif; ?>
