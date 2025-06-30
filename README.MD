@@ -5,4 +5,8 @@
 - ~~transaksi~~
 - ~~role~~
 - ~~checkout~~
-- ~~soft delete barang~~
+- ~~soft delete barang~~'
+- search
+- filter transaksi
+- pagination
+- optional: download pdf/exel
