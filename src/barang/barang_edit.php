@@ -7,6 +7,16 @@ if (!isset($_SESSION["login"])) {
     exit;
 }
 
+function redirectWithToast($type, $message)
+{
+    $_SESSION['toast'] = [
+        'type' => $type,
+        'message' => $message
+    ];
+    header("Location: ../../barang.php");
+    exit;
+}
+
 function uploadGambar($gambarLama)
 {
     if ($_FILES['gambar']['error'] === 4) {
@@ -20,26 +30,17 @@ function uploadGambar($gambarLama)
     $allowed = ['jpg', 'jpeg', 'png'];
 
     if (!in_array($format, $allowed)) {
-        alertAndRedirect('Yang anda upload bukan gambar!');
+        redirectWithToast('error', 'Yang anda upload bukan gambar!');
     }
 
     if ($ukuranFile > 2097152) {
-        alertAndRedirect('Ukuran gambar terlalu besar!');
+        redirectWithToast('error', 'Ukuran gambar terlalu besar!');
     }
 
     $namaFileBaru = uniqid() . '.' . $format;
     move_uploaded_file($tmpName, '../../img/' . $namaFileBaru);
 
     return $namaFileBaru;
-}
-
-function alertAndRedirect($message)
-{
-    echo "<script>
-        alert('$message');
-        document.location.href = '/library-cafe/barang.php';
-    </script>";
-    exit;
 }
 
 if (isset($_POST['update'])) {
@@ -64,10 +65,8 @@ if (isset($_POST['update'])) {
         if ($gambar !== $gambarLama) {
             @unlink('../../img/' . $gambarLama);
         }
-        header("Location: ../../barang.php");
-        exit;
+        redirectWithToast('success', 'Barang berhasil diperbarui!');
     } else {
-        echo "Gagal update data!";
+        redirectWithToast('error', 'Gagal memperbarui barang!');
     }
 }
-?>

@@ -8,7 +8,16 @@ if (!isset($_SESSION["login"])) {
 }
 
 $isAdmin = isset($_SESSION['admin']);
-$barang = mysqli_query($conn, "SELECT * FROM barang WHERE status = 'aktif'");
+
+$per_page = 12; // Jumlah barang per halaman
+$page = isset($_GET['page']) && is_numeric($_GET['page']) ? (int) $_GET['page'] : 1;
+$offset = ($page - 1) * $per_page;
+$barang = mysqli_query($conn, "SELECT * FROM barang WHERE status = 'aktif' LIMIT $per_page OFFSET $offset");
+
+$total_barang_result = mysqli_query($conn, "SELECT COUNT(*) as total FROM barang WHERE status = 'aktif'");
+$total_barang = mysqli_fetch_assoc($total_barang_result)['total'];
+$total_pages = ceil($total_barang / $per_page);
+
 
 include 'layout/header.php';
 ?>
@@ -69,6 +78,33 @@ include 'layout/header.php';
                     </div>
                 <?php endwhile; ?>
             </div>
+            <div class="d-flex justify-content-center mt-4">
+                <nav>
+                    <ul class="pagination">
+                        <?php if ($page > 1): ?>
+                            <li class="page-item">
+                                <a class="page-link" href="?page=<?= $page - 1 ?>" aria-label="Previous">
+                                    <span aria-hidden="true">&laquo;</span>
+                                </a>
+                            </li>
+                        <?php endif; ?>
+
+                        <?php for ($i = 1; $i <= $total_pages; $i++): ?>
+                            <li class="page-item <?= ($i === $page) ? 'active' : '' ?>">
+                                <a class="page-link" href="?page=<?= $i ?>"><?= $i ?></a>
+                            </li>
+                        <?php endfor; ?>
+
+                        <?php if ($page < $total_pages): ?>
+                            <li class="page-item">
+                                <a class="page-link" href="?page=<?= $page + 1 ?>" aria-label="Next">
+                                    <span aria-hidden="true">&raquo;</span>
+                                </a>
+                            </li>
+                        <?php endif; ?>
+                    </ul>
+                </nav>
+            </div>
         <?php else: ?>
             <div class="alert alert-warning mt-4">Tidak ada barang.</div>
         <?php endif; ?>
@@ -88,18 +124,14 @@ include 'layout/header.php';
                         return res.text(); // atau .json jika responnya json
                     })
                     .then(data => {
-                        Swal.fire({
-                            title: 'Berhasil!',
-                            text: 'Barang telah ditambahkan ke keranjang.',
-                            icon: 'success',
-                            showCancelButton: true,
-                            confirmButtonText: 'Lihat Keranjang',
-                            cancelButtonText: 'Lanjut Belanja'
-                        }).then(result => {
-                            if (result.isConfirmed) {
-                                window.location.href = 'keranjang.php';
-                            }
-                        });
+                        Toastify({
+                            text: "Barang berhasil ditambahkan ke keranjang!",
+                            duration: 3000,
+                            gravity: "top",
+                            position: "center",
+                            backgroundColor: "#28a745",
+                            stopOnFocus: true
+                        }).showToast();
                     })
                     .catch(error => {
                         Swal.fire('Error', error.message, 'error');
@@ -137,4 +169,19 @@ include 'layout/header.php';
             });
         });
     </script>
+
+    <?php if (isset($_SESSION['toast'])): ?>
+        <script>
+            Toastify({
+                text: "<?= $_SESSION['toast']['message'] ?>",
+                duration: 3000,
+                gravity: "top",
+                position: "center",
+                backgroundColor: "<?= $_SESSION['toast']['type'] === 'success' ? '#28a745' : '#dc3545' ?>",
+                stopOnFocus: true
+            }).showToast();
+        </script>
+    <?php unset($_SESSION['toast']);
+    endif; ?>
+
 </body>

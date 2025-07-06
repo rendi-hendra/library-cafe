@@ -9,15 +9,28 @@ if (!isset($_SESSION["user_id"])) {
 
 $user_id = $_SESSION["user_id"];
 
-// Ambil data transaksi dan detail
+// Filter tanggal jika ada
+$start = $_GET['start_date'] ?? '';
+$end = $_GET['end_date'] ?? '';
+
+$filter = "";
+if ($start && $end) {
+    $filter = "AND t.tanggal BETWEEN '$start' AND '$end'";
+} elseif ($start) {
+    $filter = "AND t.tanggal >= '$start'";
+} elseif ($end) {
+    $filter = "AND t.tanggal <= '$end'";
+}
+
 $transaksi = mysqli_query($conn, "
     SELECT t.id, t.tanggal, t.total, t.status, td.jumlah, td.harga, b.nama, b.gambar 
     FROM transaksi t 
     JOIN transaksi_detail td ON t.id = td.id_transaksi 
     JOIN barang b ON td.id_barang = b.id 
-    WHERE t.id_user = $user_id 
+    WHERE t.id_user = $user_id $filter
     ORDER BY t.tanggal DESC
 ");
+
 
 $riwayat = [];
 while ($row = mysqli_fetch_assoc($transaksi)) {
@@ -45,6 +58,19 @@ include 'layout/header.php';
     <?php include 'layout/layout.php'; ?>
     <div class="container-fluid">
         <h3 class="mb-4">Riwayat Transaksi</h3>
+
+        <form method="GET" class="row g-3 mb-4">
+            <div class="col-md-5">
+                <input type="date" name="start_date" class="form-control" value="<?= $_GET['start_date'] ?? '' ?>">
+            </div>
+            <div class="col-md-5">
+                <input type="date" name="end_date" class="form-control" value="<?= $_GET['end_date'] ?? '' ?>">
+            </div>
+            <div class="col-md-2">
+                <button type="submit" class="btn btn-primary w-100">Filter</button>
+            </div>
+        </form>
+
 
         <?php if (empty($riwayat)): ?>
             <div class="text-center p-5 bg-light rounded shadow-sm">

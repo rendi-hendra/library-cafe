@@ -85,7 +85,7 @@ include 'layout/header.php';
             </div>
         </div>
 
-        <div class="row mt-5 mb-4">
+        <div class="row row-cols-1 row-cols-lg-1 g-5 mt-5 mb-4">
             <!-- Chart 1: Area Chart -->
             <div class="col-md-6">
                 <div class="card shadow mb-4 h-100">
@@ -101,7 +101,7 @@ include 'layout/header.php';
             </div>
 
             <!-- Chart 2: Bar Chart -->
-            <div class="col-md-6">
+            <div class="col-md-6 mt-3">
                 <div class="card shadow mb-4 h-100">
                     <div class="card-header py-3">
                         <h6 class="m-0 font-weight-bold text-primary">Total Barang Terjual</h6>
