@@ -87,15 +87,13 @@ include 'layout/header.php';
 
         <div class="row row-cols-1 row-cols-lg-1 g-5 mt-5 mb-4">
             <!-- Chart 1: Area Chart -->
-            <div class="col-md-6">
+            <div class="col-md-6 mt-3">
                 <div class="card shadow mb-4 h-100">
                     <div class="card-header py-3">
                         <h6 class="m-0 font-weight-bold text-primary">Total Pendapatan Perhari</h6>
                     </div>
                     <div class="card-body">
-                        <div class="chart-area">
-                            <canvas id="myAreaChart"></canvas>
-                        </div>
+                        <div id="chart-pendapatan"></div>
                     </div>
                 </div>
             </div>
@@ -107,9 +105,7 @@ include 'layout/header.php';
                         <h6 class="m-0 font-weight-bold text-primary">Total Barang Terjual</h6>
                     </div>
                     <div class="card-body">
-                        <div class="chart-bar">
-                            <canvas id="myBarChart"></canvas>
-                        </div>
+                        <div id="chart-barang"></div>
                     </div>
                 </div>
             </div>
@@ -120,9 +116,10 @@ include 'layout/header.php';
 
 
     <!-- Page level custom scripts -->
-    <?php include 'src/chart/chart-area.php'; ?>
-    <?php include 'src/chart/chart-bar.php'; ?>
+    <?php include 'src/chart/chart-pendapatan.php'; ?>
+    <?php include 'src/chart/chart-barang.php'; ?>
     <!-- Bootstrap Icons CDN -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+
 
 </body>
