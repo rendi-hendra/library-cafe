@@ -9,4 +9,3 @@
 - search
 - ~~filter transaksi~~
 - ~~pagination~~
-- optional: download pdf/exel
